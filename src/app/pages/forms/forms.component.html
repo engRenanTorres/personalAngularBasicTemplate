@@ -1,0 +1,64 @@
+<form [formGroup]="personalForm" (ngSubmit)="submitForm()">
+
+  <label>
+    Nome:
+    <input type="text" formControlName="firstName"/>
+    <span *ngIf="(personalForm.get('firstName')?.touched || personalForm.get('firstName')?.dirty) && personalForm.get('firstName')?.errors">Favor o nome deve ter no mínimo
+      {{ personalForm.get('firstName')?.errors?.['minlength']?.requiredLength }}
+    </span>
+  </label>
+
+  <br/>
+
+  <label>
+    Sobrenome:
+    <input type="text" formControlName="lastName"/>
+    <span *ngIf="(personalForm.get('firstName')?.touched || personalForm.get('firstName')?.dirty) && personalForm.get('firstName')?.errors">Favor adicionar o nome</span>
+  </label>
+
+  <section>
+    <label>Estado Civil</label>
+    <br>
+    <label>
+      Solteiro(a):
+      <input type="radio" formControlName="status" value="solteiro"/>
+    </label>
+    <label>
+      Casado(a):
+      <input type="radio" formControlName="status" value="casado"/>
+    </label>
+    <label>
+      Divorciado(a):
+      <input type="radio" formControlName="status" value="divorciado"/>
+    </label>
+    <label>
+      Viúvo(a):
+      <input type="radio" formControlName="status" value="viuvo"/>
+    </label>
+  </section>
+
+  <section>
+    <label>Cargos</label>
+    <br>
+    <label>
+      Engenheiro(a):
+      <input type="checkbox" formControlName="engineer" />
+    </label>
+    <label>
+      Desenvolvedor(a):
+      <input type="checkbox" formControlName="developer" />
+    </label>
+  </section>
+
+  <label>
+    Gênero:
+    <select  formControlName="gender">
+      <option value="">Selecionar</option>
+      <option *ngFor="let gender of genderOptions" [value]="gender.id"> {{gender.name}}</option>
+    </select>
+  </label>
+  <p>
+    {{ personalForm.get('firstName')?.errors | json }}
+  </p>
+  <button type="submit" [disabled]="personalForm.invalid">Enviar</button>
+</form>
